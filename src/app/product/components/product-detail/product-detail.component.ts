@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { ProductsService } from './../../../core/services/products/products.service';
-import { Product } from './../../../core/models/product.model';
+import { ProductsService } from '@core/services/products/products.service';
+import { Product } from '@core/models/product.model';
 
 @Component({
   selector: 'app-product-detail',
@@ -28,9 +28,9 @@ export class ProductDetailComponent implements OnInit {
 
   fetchProduct(id: string) {
     this.productsService.getProduct(id)
-    .subscribe(product => {
-      this.product = product;
-    });
+      .subscribe(product => {
+        this.product = product;
+      });
   }
 
   createProduct() {
@@ -42,9 +42,9 @@ export class ProductDetailComponent implements OnInit {
       description: 'nuevo producto'
     };
     this.productsService.createProduct(newProduct)
-    .subscribe(product => {
-      console.log(product);
-    });
+      .subscribe(product => {
+        console.log(product);
+      });
   }
 
   updateProduct() {
@@ -53,16 +53,16 @@ export class ProductDetailComponent implements OnInit {
       description: 'edicion titulo'
     };
     this.productsService.updateProduct('2', updateProduct)
-    .subscribe(product => {
-      console.log(product);
-    });
+      .subscribe(product => {
+        console.log(product);
+      });
   }
 
   deleteProduct() {
     this.productsService.deleteProduct('222')
-    .subscribe(rta => {
-      console.log(rta);
-    });
+      .subscribe(rta => {
+        console.log(rta);
+      });
   }
 
 }

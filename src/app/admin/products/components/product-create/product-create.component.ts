@@ -5,8 +5,8 @@ import { AngularFireStorage } from '@angular/fire/storage';
 
 import { finalize } from 'rxjs/operators';
 
-import { MyValidators } from './../../../../utils/validators';
-import { ProductsService } from './../../../../core/services/products/products.service';
+import { MyValidators } from '@utils/validators';
+import { ProductsService } from '@core/services/products/products.service';
 
 import { Observable } from 'rxjs';
 
@@ -37,10 +37,10 @@ export class ProductCreateComponent implements OnInit {
     if (this.form.valid) {
       const product = this.form.value;
       this.productsService.createProduct(product)
-      .subscribe((newProduct) => {
-        console.log(newProduct);
-        this.router.navigate(['./admin/products']);
-      });
+        .subscribe((newProduct) => {
+          console.log(newProduct);
+          this.router.navigate(['./admin/products']);
+        });
     }
   }
 
@@ -51,16 +51,16 @@ export class ProductCreateComponent implements OnInit {
     const task = this.storage.upload(name, file);
 
     task.snapshotChanges()
-    .pipe(
-      finalize(() => {
-        this.image$ = fileRef.getDownloadURL();
-        this.image$.subscribe(url => {
-          console.log(url);
-          this.form.get('image').setValue(url);
-        });
-      })
-    )
-    .subscribe();
+      .pipe(
+        finalize(() => {
+          this.image$ = fileRef.getDownloadURL();
+          this.image$.subscribe(url => {
+            console.log(url);
+            this.form.get('image').setValue(url);
+          });
+        })
+      )
+      .subscribe();
   }
 
   private buildForm() {

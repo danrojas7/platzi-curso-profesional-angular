@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { MyValidators } from './../../../../utils/validators';
-import { ProductsService } from './../../../../core/services/products/products.service';
+import { MyValidators } from '@utils/validators';
+import { ProductsService } from '@core/services/products/products.service';
 
 @Component({
   selector: 'app-product-edit',
@@ -28,9 +28,9 @@ export class ProductEditComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params.id;
       this.productsService.getProduct(this.id)
-      .subscribe(product => {
-        this.form.patchValue(product);
-      });
+        .subscribe(product => {
+          this.form.patchValue(product);
+        });
     });
   }
 
@@ -39,10 +39,10 @@ export class ProductEditComponent implements OnInit {
     if (this.form.valid) {
       const product = this.form.value;
       this.productsService.updateProduct(this.id, product)
-      .subscribe((newProduct) => {
-        console.log(newProduct);
-        this.router.navigate(['./admin/products']);
-      });
+        .subscribe((newProduct) => {
+          console.log(newProduct);
+          this.router.navigate(['./admin/products']);
+        });
     }
   }
 
