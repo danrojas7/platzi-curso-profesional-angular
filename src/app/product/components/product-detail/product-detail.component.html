@@ -1,4 +1,6 @@
-<div *ngIf="product">
+<div *ngIf="(product$ | async) as product">
+  <!-- Lo que se hace en este punto es subscribirse directamente en el template, y desubscribirse -->
+  <!-- una vez haya completado su tarea o haya destruido el componente -->
   <div>
     <img [src]="product.image" alt="">
   </div>
@@ -13,4 +15,3 @@
   <button (click)="updateProduct()">update</button>
   <button (click)="deleteProduct()">delete</button>
 </div>
-
