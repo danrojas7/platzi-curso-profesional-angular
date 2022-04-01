@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { ProductsService } from '@core/services/products/products.service';
 import { Product } from '@core/models/product.model';
+import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/overlay-directives';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -65,6 +66,12 @@ export class ProductDetailComponent implements OnInit {
       .subscribe(rta => {
         console.log(rta);
       });
+  }
+
+  getRandomUsers() {
+    this.productsService.getRandomUsers().subscribe(users => {
+      console.log(users);
+    });
   }
 
 }
