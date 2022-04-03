@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { ProductsService } from '@core/services/products/products.service';
 import { Product } from '@core/models/product.model';
-import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/overlay-directives';
+import FileSaver from 'file-saver';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -76,6 +76,14 @@ export class ProductDetailComponent implements OnInit {
       error => {
         console.error(error);
       });
+  }
+
+  getFile() {
+    this.productsService.getFile().subscribe(content => {
+      var blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      FileSaver.saveAs(blob, "test.txt");
+      console.log(content);
+    });
   }
 
 }

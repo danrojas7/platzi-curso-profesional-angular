@@ -20,7 +20,8 @@
       "@admin/*": ["src/app/admin/*"],
       "@utils/*": ["src/app/utils/*"],
       "@environments/*": ["./src/environments/*"]
-    }
+    },
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
