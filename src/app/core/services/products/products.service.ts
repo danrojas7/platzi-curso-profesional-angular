@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Product } from '@core/models/product.model';
 
+import * as Sentry from "@sentry/browser";
+
 import { environment } from '@environments/environment';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 interface User {
   email: string;
@@ -35,17 +37,29 @@ export class ProductsService {
   }
 
   updateProduct(id: string, changes: Partial<Product>) {
-    return this.http.put(`${environment.url_api}/products/${id}`, changes);
+    return this.http.put(`${environment.url_api}/products/${id}`, changes).pipe(
+      catchError(this.handleError)
+    );
   }
 
   deleteProduct(id: string) {
-    return this.http.delete(`${environment.url_api}/products/${id}`);
+    return this.http.delete(`${environment.url_api}/products/${id}`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getRandomUsers(): Observable<User[]> {
     return this.http.get("https://randomuser.me/api/?results=2").pipe(
+      // catchError(error => { return throwError('ups algo aslió mal'); }),
+      catchError(this.handleError),
       map((response: any) => response.results as User[])
     );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+    Sentry.captureException(error);
+    return throwError('Ups, algo salió mal')
   }
 
 }
