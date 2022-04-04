@@ -40,7 +40,8 @@ export class LoginComponent implements OnInit {
   }
 
   loginApiRest() {
-    this.authService.loginRestApi('daniel@daniel.com', "1234").subscribe(data => console.log(data));
+    const value = this.form.value;
+    this.authService.loginRestApi(value.email, value.password).subscribe(data => console.log(data));
   }
 
   private buildForm() {
